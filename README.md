@@ -1,6 +1,8 @@
 # synth
 
 > Un synthé en js
+>
+> PS: ça marche bien mieux sur chrome. Genre beaucoup mieux.
 
 # TODO
 
