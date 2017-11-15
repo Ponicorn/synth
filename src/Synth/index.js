@@ -116,7 +116,8 @@ export default class Synth {
     let oscillator = context.createOscillator()
     let gainNode = context.createGain()
     oscillator.type = this.type
-    oscillator.frequency.value = this.notes[note + this.detune]
+    oscillator.frequency.value = this.notes[note]
+    oscillator.detune.value = this.detune * 100
     gainNode.connect(this.context.destination)
     oscillator.connect(gainNode)
     gainNode.gain.value = 0.0001

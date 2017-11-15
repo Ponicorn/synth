@@ -1,0 +1,12 @@
+[debug] [2017-11-15T11:07:04.486Z] ----------------------------------------------------------------------
+[debug] [2017-11-15T11:07:04.487Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\sauder2\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2017-11-15T11:07:04.488Z] CLI Version:   3.15.0
+[debug] [2017-11-15T11:07:04.488Z] Platform:      win32
+[debug] [2017-11-15T11:07:04.488Z] Node Version:  v7.10.0
+[debug] [2017-11-15T11:07:04.488Z] Time:          Wed Nov 15 2017 12:07:04 GMT+0100 (Paris, Madrid)
+[debug] [2017-11-15T11:07:04.488Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-15T11:07:04.503Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-15T11:07:04.503Z] > authorizing via signed-in user
+[debug] [2017-11-15T11:07:04.505Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/synth-js  
+ Wed Nov 15 2017 12:07:04 GMT+0100 (Paris, Madrid)
