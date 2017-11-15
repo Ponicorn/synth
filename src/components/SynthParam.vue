@@ -20,6 +20,11 @@
       <input type="range" id="release" max="2" min="0" step="0.01" v-model="synth.release">
       <div>{{ synth.release }}</div>
     </div>
+    <div class="detune">
+      <label for="detune">Detune: </label>
+      <input type="range" id="detune" max="11" min="-11" step="1" v-model="synth.detune">
+      <div>{{ synth.detune }}</div>
+    </div>
     <div class="volume">
       <label for="volume">Volume: </label>
       <input type="range" id="volume" max="1" min="0" step="0.1" v-model="synth.volume">

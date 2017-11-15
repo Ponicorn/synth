@@ -1,3 +1,5 @@
+// Les notes correspondes au note en MIDI
+// Référence: http://subsynth.sourceforge.net/midinote2freq.html
 import notes from './notes'
 
 // On definie le contexte audio, en fonction de ce qu'on trouve
@@ -22,7 +24,7 @@ export default class Synth {
    * @param {number} object.volume
    * @return Synth
    */
-  constructor ({ type = 'sine', release = 0.01, attack = 0.01, volume = 1 }) {
+  constructor ({ type = 'sine', release = 0.01, attack = 0.01, volume = 1, detune = 0 }) {
     // TODO: Check les valeurs
     this.context = context
     this.type = type
@@ -30,6 +32,7 @@ export default class Synth {
     this.release = release
     this.volume = volume
     this.notes = notes
+    this.detune = detune
     this.playing = {}
   }
 
@@ -41,6 +44,12 @@ export default class Synth {
 
   get volume () { return this._volume }
   set volume (val) { this._volume = Number(val) || 0.001 }
+
+  get detune () { return this._detune }
+  set detune (val) {
+    this._detune = Number(val)
+    this.clear()
+  }
 
   get type () { return this._type }
   set type (val) {
@@ -66,9 +75,8 @@ export default class Synth {
    * @param {String} note, La note, parfois avec l'octave déjà renseigné. Note en anglais (C, D, E, etc.)
    * @param {String} octave, Octave de la note, si elle n'est pas déjà renseigné dans la note
    */
-  play (note, octave) {
-    // TODO: meilleurs verification ?
-    if (octave) note += octave
+  play (note, volume) {
+    note = Number(note)
 
     // Si la note n'existe pas, on la crée
     if (!this.playing[note]) this.createNote(note)
@@ -86,9 +94,8 @@ export default class Synth {
    * @param  {String} note
    * @param  {String} octave
    */
-  stop (note, octave) {
-    // TODO: meilleurs verification ?
-    if (octave) note += octave
+  stop (note) {
+    note = Number(note)
 
     // Si il y a pas de note, pas la peine de continué
     if (!this.playing[note]) return
@@ -109,7 +116,7 @@ export default class Synth {
     let oscillator = context.createOscillator()
     let gainNode = context.createGain()
     oscillator.type = this.type
-    oscillator.frequency.value = this.notes[note]
+    oscillator.frequency.value = this.notes[note + this.detune]
     gainNode.connect(this.context.destination)
     oscillator.connect(gainNode)
     gainNode.gain.value = 0.0001

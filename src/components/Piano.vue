@@ -2,9 +2,9 @@
   <div class="Piano">
     <!-- Le clavier visuel et interactif -->
     <div class="clavierWrap">
-      <Douze :octave="3 + octave" :play="play" :stop="stop"/>
-      <Douze :octave="4 + octave" :play="play" :stop="stop"/>
-      <Douze :octave="5 + octave" :play="play" :stop="stop"/>
+      <Douze :octave="octave - 1" :play="play" :stop="stop"/>
+      <Douze :octave="octave"     :play="play" :stop="stop"/>
+      <Douze :octave="octave + 1"  :play="play" :stop="stop"/>
     </div>
 
     <!-- Les quelques options "global" -->
@@ -39,12 +39,16 @@ export default {
   data () {
     return {
       synth: [ new Synth({}) ],
-      octave: 0
+      octave: 0,
+      notebase: 60
     }
   },
+  computed: {
+    note () { return this.notebase + this.octave * 12 }
+  },
   methods: {
-    play (note, octave) { this.synth.forEach(s => s.play(note, octave)) },
-    stop (note, octave) { this.synth.forEach(s => s.stop(note, octave)) },
+    play (note) { this.synth.forEach(s => s.play(note)) },
+    stop (note) { this.synth.forEach(s => s.stop(note)) },
     addSynth () { this.synth.push(new Synth({})) },
     removeSynth (index) { this.synth.splice(index, 1) }
   }
@@ -95,5 +99,6 @@ $dark: #22313F;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 </style>
