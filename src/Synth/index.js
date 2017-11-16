@@ -75,7 +75,7 @@ export default class Synth {
    * @param {String} note, La note, parfois avec l'octave déjà renseigné. Note en anglais (C, D, E, etc.)
    * @param {String} octave, Octave de la note, si elle n'est pas déjà renseigné dans la note
    */
-  play (note, volume) {
+  play (note, velocite = 127) {
     note = Number(note)
 
     // Si la note n'existe pas, on la crée
@@ -85,7 +85,9 @@ export default class Synth {
     this.playing[note].gainNode.gain.cancelScheduledValues(0)
 
     // On joue la note, avec les parametre du synthé
-    this.playing[note].gainNode.gain.exponentialRampToValueAtTime(this.volume, this.context.currentTime + this.attack)
+    let time = this.context.currentTime + this.attack
+    let volume = Math.round((velocite / 128) * this.volume * 10) / 10 || 0.1
+    this.playing[note].gainNode.gain.exponentialRampToValueAtTime(volume, time)
   }
 
   /**
