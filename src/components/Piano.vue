@@ -97,6 +97,7 @@ $border: 4px solid $dark;
     align-items: center;
     justify-content: center;
     margin: 0 1em;
+    font-weight: 600;
   }
   .button {
     display: flex;
