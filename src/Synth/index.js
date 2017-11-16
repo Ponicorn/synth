@@ -24,15 +24,18 @@ export default class Synth {
    * @param {number} object.volume
    * @return Synth
    */
-  constructor ({ type = 'sine', release = 0.01, attack = 0.01, volume = 1, detune = 0 }) {
+  constructor ({ type = 'sine', release = 0.01, attack = 0.01, volume = 1, detune = 0, octave = 0 }) {
     // TODO: Check les valeurs
     this.context = context
+    this.gainNode = this.context.createGain()
+    this.gainNode.connect(context.destination)
     this.type = type
     this.attack = attack
     this.release = release
-    this.volume = volume
     this.notes = notes
     this.detune = detune
+    this.octave = octave
+    this.volume = volume
     this.playing = {}
   }
 
@@ -43,11 +46,20 @@ export default class Synth {
   set release (val) { this._release = Number(val) || 0.001 }
 
   get volume () { return this._volume }
-  set volume (val) { this._volume = Number(val) || 0.001 }
+  set volume (val) {
+    this._volume = Number(val) || 0.001
+    this.gainNode.gain.value = this._volume
+  }
 
   get detune () { return this._detune }
   set detune (val) {
     this._detune = Number(val)
+    this.clear()
+  }
+
+  get octave () { return this._octave }
+  set octave (val) {
+    this._octave = Number(val)
     this.clear()
   }
 
@@ -86,7 +98,7 @@ export default class Synth {
 
     // On joue la note, avec les parametre du synthé
     let time = this.context.currentTime + this.attack
-    let volume = Math.round((velocite / 128) * this.volume * 10) / 10 || 0.1
+    let volume = Math.round((velocite / 12.8)) / 10 || 0.1
     this.playing[note].gainNode.gain.exponentialRampToValueAtTime(volume, time)
   }
 
@@ -106,7 +118,7 @@ export default class Synth {
     this.playing[note].gainNode.gain.cancelScheduledValues(0)
 
     // On stop la note, avec les parametre du synthé
-    this.playing[note].gainNode.gain.exponentialRampToValueAtTime(0.0001, this.context.currentTime + this.release)
+    this.playing[note].gainNode.gain.exponentialRampToValueAtTime(0.00001, this.context.currentTime + this.release)
   }
 
   /**
@@ -115,13 +127,20 @@ export default class Synth {
    * @param  {String}   note
    */
   createNote (note) {
+    // Oscillateur et noeds de gain pour la note
     let oscillator = context.createOscillator()
     let gainNode = context.createGain()
+
+    // Paramtetrage de l'Oscillateur
     oscillator.type = this.type
     oscillator.frequency.value = this.notes[note]
-    oscillator.detune.value = this.detune * 100
-    gainNode.connect(this.context.destination)
+    oscillator.detune.value = this.detune * 100 + this.octave * 1200
+
+    // On fait les connections
     oscillator.connect(gainNode)
+    gainNode.connect(this.gainNode)
+    // gainNode.connect(this.context.destination)
+
     gainNode.gain.value = 0.0001
     oscillator.start(0)
     this.playing[note] = { oscillator, gainNode }

@@ -59,7 +59,7 @@ $dark: #22313F;
 $height: 120px;
 $bsize: 40px;
 $nsize: 30px;
-$border: 2px solid $dark;
+$border: 4px solid $dark;
 
 .douze {
   height: $height;
@@ -95,9 +95,12 @@ $border: 2px solid $dark;
     height: 70%;
     width: $nsize;
     background: $dark;
-    margin-left: (-$nsize/2);
-    margin-right: (-$nsize/2);
+    margin-left: (-($nsize + 3)/2);
+    margin-right: (-($nsize - 3)/2);
     z-index: 11;
+    border-right: $border;
+    border-left: $border;
+    border-bottom: $border;
     &.playing { background: lighten($dark, 25%); }
 
   }

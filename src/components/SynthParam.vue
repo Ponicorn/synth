@@ -25,6 +25,11 @@
       <input type="range" id="detune" max="11" min="-11" step="1" v-model="synth.detune">
       <div>{{ synth.detune }}</div>
     </div>
+    <div class="octave">
+      <label for="detune">Octave: </label>
+      <input type="range" id="detune" max="3" min="-3" step="1" v-model="synth.octave">
+      <div>{{ synth.octave }}</div>
+    </div>
     <div class="volume">
       <label for="volume">Volume: </label>
       <input type="range" id="volume" max="1" min="0" step="0.1" v-model="synth.volume">
@@ -45,14 +50,15 @@ export default {
 <style lang="scss">
 $light: #ECECEC;
 $dark: #22313F;
+$border: 4px solid $dark;
+
 
 .synthParam {
   background: $light;
   padding: 1em;
-  border: 2px solid $dark;
+  border: $border;
   position: relative;
   margin: 10px;
-
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -66,6 +72,7 @@ $dark: #22313F;
     align-items: center;
     margin-bottom: 10px;
     label {
+      font-weight: 600;
       width: 80px;
       margin-right: 10px;
       display: block;
@@ -76,6 +83,7 @@ $dark: #22313F;
       margin-right: 10px;
     }
     div {
+      font-weight: 600;
       width: 40px;
       text-align: left;
     }
@@ -83,6 +91,7 @@ $dark: #22313F;
 
   .delete {
     position: absolute;
+    font-weight: 600;
     top:   0.5em;
     right: 0.5em;
     cursor: pointer;

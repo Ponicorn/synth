@@ -2,13 +2,12 @@
 
 > Un synthé en js
 >
-> PS: ça marche bien mieux sur chrome. Genre beaucoup mieux.
+> Chrome presque obligatoire, pour la meilleurs gestion de l'api audio
+> et la gestion des peripheriques midi
+> ( Opera doit peut-être marcher peut-être, c'est du webkit après tout ).
 
 # TODO
-
- * Support plus complet de firefox (attack, release, creusé les methodes accessible & fonctionnel du côté gainNode.gain)
- * Suport interface MIDI physique
- * Verifier si c'est pas trop mauvais de faire autant d'osciallateurs / opti si pas jouer depuis X secondes
+ * Suport MIDI: sustain, mod et bend
  * Meilleurs manière de gerer les events sur Douze.vue, probablement
  * Plus d'effet
  * Plus d'idée

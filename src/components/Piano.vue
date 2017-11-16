@@ -54,7 +54,10 @@ export default {
     play (note, velocite) { this.synth.forEach(s => s.play(note, velocite)) },
     stop (note) { this.synth.forEach(s => s.stop(note)) },
     addSynth () { this.synth.push(new Synth({})) },
-    removeSynth (index) { this.synth.splice(index, 1) },
+    removeSynth (index) {
+      this.synth[index].clear()
+      this.synth.splice(index, 1)
+    },
     midiEvent (ev) {
       let action = ev.data[0] // 144 -> appuyer | 128 -> relacher
       let note = ev.data[1]
@@ -70,6 +73,7 @@ export default {
 <style lang="scss" scoped>
 $light: #ECECEC;
 $dark: #22313F;
+$border: 4px solid $dark;
 
 .clavierWrap {
   display: flex;
@@ -99,9 +103,10 @@ $dark: #22313F;
     justify-content: center;
     align-items: center;
     background: $light;
-    border: 2px solid $dark;
-    height: 35px;
-    width:  35px;
+    border: $border;
+    height: 30px;
+    width:  30px;
+    font-weight: 600;
     margin: 0 5px;
     cursor: pointer;
   }
