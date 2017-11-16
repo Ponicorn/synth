@@ -24,7 +24,7 @@ export default class Synth {
    * @param {number} object.volume
    * @return Synth
    */
-  constructor ({ type = 'sine', release = 0.01, attack = 0.01, volume = 1, detune = 0, octave = 0 }) {
+  constructor ({ type = 'sine', release = 0, attack = 0, volume = 1, detune = 0, octave = 0 }) {
     // TODO: Check les valeurs
     this.context = context
     this.gainNode = this.context.createGain()
@@ -40,10 +40,10 @@ export default class Synth {
   }
 
   get attack () { return this._attack }
-  set attack (val) { this._attack = Number(val) || 0.001 }
+  set attack (val) { this._attack = Number(val) }
 
   get release () { return this._release }
-  set release (val) { this._release = Number(val) || 0.001 }
+  set release (val) { this._release = Number(val) }
 
   get volume () { return this._volume }
   set volume (val) {
@@ -97,7 +97,8 @@ export default class Synth {
     this.playing[note].gainNode.gain.cancelScheduledValues(0)
 
     // On joue la note, avec les parametre du synthé
-    let time = this.context.currentTime + this.attack
+    let atk = this.attack || 0.01
+    let time = this.context.currentTime + atk
     let volume = Math.round((velocite / 12.8)) / 10 || 0.1
     this.playing[note].gainNode.gain.exponentialRampToValueAtTime(volume, time)
   }
@@ -117,8 +118,10 @@ export default class Synth {
     // On annule tout eventuel slide vers le bas prévu
     this.playing[note].gainNode.gain.cancelScheduledValues(0)
 
+    let rlz = this.release || 0.01
+    let time = this.context.currentTime + rlz
     // On stop la note, avec les parametre du synthé
-    this.playing[note].gainNode.gain.exponentialRampToValueAtTime(0.00001, this.context.currentTime + this.release)
+    this.playing[note].gainNode.gain.exponentialRampToValueAtTime(0.00001, time)
   }
 
   /**

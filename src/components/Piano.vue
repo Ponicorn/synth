@@ -10,12 +10,12 @@
     <!-- Les quelques options "global" -->
     <div class="options">
       <div class="octave">
-        <div class="text">Octave {{ octave }}</div>
+        <div class="text">O : {{ octave }}</div>
         <div class="button" @click="octave++" >+</div>
         <div class="button" @click="octave--" >-</div>
       </div>
       <div class="addsynth">
-        <div class="text">Add synth</div>
+        <div class="text">🎹</div>
         <div class="button" @click="addSynth()">+</div>
         <div class="button" @click="removeSynth(synth.length - 1)">-</div>
       </div>
