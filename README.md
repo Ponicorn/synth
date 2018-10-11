@@ -1,5 +1,4 @@
 # synth
-
 > Un synthé en js
 >
 > Chrome presque obligatoire, pour la meilleurs gestion de l'api audio
@@ -19,23 +18,22 @@ icône sympa pour les waves [ici](https://thenounproject.com/alemesre/collection
  * Moins moche / plus fun
 
 
-## Build Setup
-
-``` bash
-# install dependencies
+## Project setup
+```
 npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-## icones
+### Compiles and minifies for production
+```
+npm run build
+```
 
-sawtooth, sine, square, triangle icones by Aurélien Lemesre from the Noun Project
+### Lints and fixes files
+```
+npm run lint
+```

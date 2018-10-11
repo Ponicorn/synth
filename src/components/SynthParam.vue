@@ -41,7 +41,6 @@
       </div>
     </div>
 
-
   </div>
 </template>
 
@@ -56,7 +55,6 @@ export default {
 $light: #ECECEC;
 $dark: #22313F;
 $border: 4px solid $dark;
-
 
 .synthParam {
   background: $light;
@@ -150,6 +148,5 @@ $border: 4px solid $dark;
       }
     }
   }
-
 }
 </style>
