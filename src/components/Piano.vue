@@ -33,6 +33,7 @@ import Douze from '@/components/Douze'
 import SynthParam from '@/components/SynthParam'
 import Synth from '@/Synth'
 import bindMidi from '@/bindMidi'
+import bindKeyboard from '@/bindKeyboard'
 
 export default {
   name: 'Piano',
@@ -49,6 +50,7 @@ export default {
   },
   created () {
     bindMidi(this.midiEvent)
+    bindKeyboard(this.play, this.stop)
   },
   methods: {
     play (note, velocite) { this.synth.forEach(s => s.play(note, velocite)) },
